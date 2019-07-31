@@ -10,15 +10,21 @@ This is the very first working concept. The goal was to create a tracker based o
 This first implementation uses [MTCNN](https://kpzhang93.github.io/MTCNN_face_detection_alignment/) as a feature extractor. The resulting sub-regions are then fed into another CNN, together with some other features:
 
 ```
-(96x48 image)       (image-coordinates of both eyes)
-     |                              |
-4 Conv layers                2 dense layers
-     |                              |
-     +---------- concat ------------+
-                   |
-            4 dense layers
-                   |
-   (x/y screen-coordinate regression)
+               (720p Webcam image)
+                       |
+                     MTCNN
+                       |
+(2x48x48 eye patches) -+- (image-coordinates of both eyes)
+          |                              |
+    4 Conv layers                        |
+          |                              |
+    4 dense layers                 2 dense layers
+          |                              |
+          +---------- concat ------------+
+                        |
+                 4 dense layers
+                        |
+        (x/y screen-coordinate regression)
 ```
 
 ## Performance
